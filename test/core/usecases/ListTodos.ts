@@ -1,5 +1,4 @@
 import { expect } from "chai";
-
 import ListTodos from "../../../src/core/usecases/ListTodos";
 import { getMockTodoRepository } from "../testUtils";
 
@@ -10,8 +9,8 @@ describe("usecase ListTodos", () => {
             {
                 id: "id",
                 title: "title",
-                isDone: false
-            }
+                isDone: false,
+            },
         ]);
         const listTodos = new ListTodos(todoRepository);
         const todos = await listTodos.exec();
@@ -19,8 +18,8 @@ describe("usecase ListTodos", () => {
             {
                 id: "id",
                 title: "title",
-                isDone: false
-            }
+                isDone: false,
+            },
         ]);
     });
 });

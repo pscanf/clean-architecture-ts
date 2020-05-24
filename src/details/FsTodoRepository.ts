@@ -1,5 +1,4 @@
 import { readJSON, writeJSON } from "fs-extra";
-
 import { ITodo } from "../core/entities/Todo";
 import ITodoRepository from "../core/gateways/ITodoRepository";
 
@@ -43,7 +42,7 @@ export default class FsTodoRepository implements ITodoRepository {
         const db = await this.readDb();
         db[id] = {
             ...db[id],
-            ...patch
+            ...patch,
         };
         await this.writeDb(db);
         return db[id];

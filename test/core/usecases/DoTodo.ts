@@ -1,11 +1,10 @@
 import { expect } from "chai";
-
-import DoTodo from "../../../src/core/usecases/DoTodo";
-import { getMockTodoRepository } from "../testUtils";
 import {
     TodoAlreadyDoneError,
-    TodoNotFoundError
+    TodoNotFoundError,
 } from "../../../src/core/common/errors";
+import DoTodo from "../../../src/core/usecases/DoTodo";
+import { getMockTodoRepository } from "../testUtils";
 
 describe("usecase DoTodo", () => {
     it("throws TodoNotFoundError if no todo exists with the provided id", async () => {
@@ -21,7 +20,7 @@ describe("usecase DoTodo", () => {
         todoRepository.findOneById.resolves({
             id: "id",
             title: "title",
-            isDone: true
+            isDone: true,
         });
         const doTodo = new DoTodo(todoRepository);
         const doTodoPromise = doTodo.exec("id");
@@ -33,12 +32,12 @@ describe("usecase DoTodo", () => {
         todoRepository.findOneById.resolves({
             id: "id",
             title: "title",
-            isDone: false
+            isDone: false,
         });
         const doTodo = new DoTodo(todoRepository);
         await doTodo.exec("id");
         expect(todoRepository.updateOne).to.have.been.calledOnceWith("id", {
-            isDone: true
+            isDone: true,
         });
     });
 
@@ -47,19 +46,19 @@ describe("usecase DoTodo", () => {
         todoRepository.findOneById.resolves({
             id: "id",
             title: "title",
-            isDone: false
+            isDone: false,
         });
         todoRepository.updateOne.resolves({
             id: "id",
             title: "title",
-            isDone: true
+            isDone: true,
         });
         const doTodo = new DoTodo(todoRepository);
         const updatedTodo = await doTodo.exec("id");
         expect(updatedTodo).to.deep.equal({
             id: "id",
             title: "title",
-            isDone: true
+            isDone: true,
         });
     });
 });

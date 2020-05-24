@@ -1,5 +1,4 @@
 import { cloneDeep } from "lodash";
-
 import { ITodo } from "../core/entities/Todo";
 import ITodoRepository from "../core/gateways/ITodoRepository";
 
@@ -43,7 +42,7 @@ export default class InMemoryTodoRepository implements ITodoRepository {
         const db = this.readDb();
         db[id] = {
             ...db[id],
-            ...patch
+            ...patch,
         };
         this.writeDb(db);
         return db[id];

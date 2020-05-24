@@ -6,8 +6,8 @@ export interface ITodo {
     isDone: boolean;
 }
 
-// Enterprise-wide business rule: the title of a todo is valid when it has 0 <
-// length < 256
+// Enterprise-wide business rule:
+// the title of a todo is valid when it has 0 < length < 256
 function isTitleValid(title: string): boolean {
     return title.length > 0 && title.length < 256;
 }

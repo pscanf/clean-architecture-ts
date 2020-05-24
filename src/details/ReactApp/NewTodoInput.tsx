@@ -1,32 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface IProps {
     onCreateTodo(title: string): void;
 }
-interface IState {
-    title: string;
-}
-export default class NewTodoInput extends React.Component<IProps, IState> {
-    state = { title: "" };
-    render() {
-        const { title } = this.state;
-        const { onCreateTodo } = this.props;
-        return (
-            <section>
-                <input
-                    value={title}
-                    onChange={evt => this.setState({ title: evt.target.value })}
-                />
-                &nbsp;
-                <button
-                    onClick={() => {
-                        onCreateTodo(title);
-                        this.setState({ title: "" });
-                    }}
-                >
-                    {"Create Todo"}
-                </button>
-            </section>
-        );
-    }
+export default function NewTodoInput(props: IProps) {
+    const [title, setTitle] = useState("");
+    return (
+        <section>
+            <input
+                value={title}
+                onChange={(evt) => setTitle(evt.target.value)}
+            />
+            &nbsp;
+            <button
+                onClick={() => {
+                    props.onCreateTodo(title);
+                    setTitle("");
+                }}
+            >
+                {"Create Todo"}
+            </button>
+        </section>
+    );
 }

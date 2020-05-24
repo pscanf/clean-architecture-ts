@@ -1,43 +1,36 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import { ITodo } from "../../core/entities/Todo";
-
-import TodoList from "./TodoList";
 import NewTodoInput from "./NewTodoInput";
+import TodoList from "./TodoList";
 
 interface IProps {
     listTodos(): Promise<ITodo[]>;
     createTodo(title: string): Promise<ITodo>;
     doTodo(id: string): Promise<ITodo>;
 }
-interface IState {
-    todos: ITodo[];
-}
-export default class App extends React.Component<IProps, IState> {
-    state = { todos: [] };
-    getTodosList = async () => {
-        this.setState({ todos: await this.props.listTodos() });
+export default function App(props: IProps) {
+    const [todos, setTodos] = useState([] as ITodo[]);
+
+    const getTodosList = async () => {
+        setTodos(await props.listTodos());
     };
-    handleDoTodo = async (id: string) => {
-        await this.props.doTodo(id);
-        await this.getTodosList();
+    const handleCreateTodo = async (title: string) => {
+        await props.createTodo(title);
+        await getTodosList();
     };
-    handleCreateTodo = async (title: string) => {
-        await this.props.createTodo(title);
-        await this.getTodosList();
+    const handleDoTodo = async (id: string) => {
+        await props.doTodo(id);
+        await getTodosList();
     };
-    componentDidMount() {
-        this.getTodosList();
-    }
-    render() {
-        return (
-            <main>
-                <TodoList
-                    todos={this.state.todos}
-                    onDoTodo={this.handleDoTodo}
-                />
-                <NewTodoInput onCreateTodo={this.handleCreateTodo} />
-            </main>
-        );
-    }
+
+    useEffect(() => {
+        getTodosList();
+    }, []);
+
+    return (
+        <main>
+            <TodoList todos={todos} onDoTodo={handleDoTodo} />
+            <NewTodoInput onCreateTodo={handleCreateTodo} />
+        </main>
+    );
 }

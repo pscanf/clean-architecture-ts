@@ -13,9 +13,9 @@ export default class CreateTodo {
         const todo = makeTodo({
             id: id,
             title: title,
-            // Application-specific business rule: todos are
-            // created as not-done
-            isDone: false
+            // Application-specific business rule:
+            // todos are created as not-done
+            isDone: false,
         });
         return this.todoRepository.createOne(todo);
     }

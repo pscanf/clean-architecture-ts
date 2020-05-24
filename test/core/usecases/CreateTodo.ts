@@ -1,5 +1,4 @@
 import { expect } from "chai";
-
 import CreateTodo from "../../../src/core/usecases/CreateTodo";
 import { getMockTodoRepository, getMockUniqueIdGenerator } from "../testUtils";
 
@@ -13,7 +12,7 @@ describe("usecase CreateTodo", () => {
         expect(todoRepository.createOne).to.have.been.calledOnceWith({
             id: "id",
             title: "title",
-            isDone: false
+            isDone: false,
         });
     });
 
@@ -22,7 +21,7 @@ describe("usecase CreateTodo", () => {
         todoRepository.createOne.resolves({
             id: "id",
             title: "title",
-            isDone: false
+            isDone: false,
         });
         const uniqueIdGenerator = getMockUniqueIdGenerator();
         uniqueIdGenerator.generateId.resolves("id");
@@ -31,7 +30,7 @@ describe("usecase CreateTodo", () => {
         expect(createdTodo).to.deep.equal({
             id: "id",
             title: "title",
-            isDone: false
+            isDone: false,
         });
     });
 });
